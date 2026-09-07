@@ -1,56 +1,50 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Tooltip } from "@heroui/react";
 
 export const Education = () => {
-  
   const education = [
     {
       id: 1,
-      degree: "Master's in Artificial Intelligence",
-      institution: "University Name",
-      year: "2022 - 2024",
+      degree: "Master's Degree in Data Science & AI",
+      institution: "University Constantine 2",
+      location: "Constantine, Algeria",
+      year: "Sep 2021 – June 2026",
       description:
-        "Specialized in Natural Language Processing and Deep Learning. Thesis on 'Fine-tuning LLMs for Domain-Specific Applications'.",
-      courses: ["Advanced ML", "NLP", "Computer Vision", "Big Data"],
-      logo: "/university-logo.png", // Replace with actual path
-    },
-    {
-      id: 2,
-      degree: "Bachelor's in Computer Science",
-      institution: "University Name",
-      year: "2018 - 2022",
-      description:
-        "Focus on Software Engineering and Data Structures. Graduated with Honors.",
-      courses: ["Algorithms", "Web Development", "DBMS", "Data Mining"],
-      logo: "/university-logo2.png",
+        "Academic training in machine learning, deep learning, distributed computing, and data engineering. Specialization in predictive modeling, computer vision, generative AI, and cloud-to-edge IoT integrations.",
+      courses: [
+        "Machine Learning",
+        "Deep Learning",
+        "Natural Language Processing",
+        "Computer Vision",
+        "PySpark & Big Data",
+        "Cloud Computing",
+        "Database Systems",
+        "IoT Architectures",
+      ],
     },
   ];
 
   const certifications = [
     {
       id: 1,
-      title: "Deep Learning Specialization",
-      issuer: "DeepLearning.AI (Coursera)",
-      year: "2023",
-      skills: ["TensorFlow", "Neural Networks", "CNN", "RNN"],
-      credential: "Credentials URL/Link",
+      title: "Google Cloud Compute Basics",
+      issuer: "Google Cloud",
+      badge: "Cloud Infrastructure",
+      skills: ["Compute Engine", "Virtual Machines", "GCP Architecture", "Networking"],
     },
     {
       id: 2,
-      title: "AWS Certified Machine Learning Specialty",
-      issuer: "Amazon Web Services",
-      year: "2023",
-      skills: ["SageMaker", "ML Pipelines", "Model Deployment"],
-      credential: "Credentials URL/Link",
+      title: "Kubernetes in Google Cloud",
+      issuer: "Google Cloud",
+      badge: "Container Orchestration",
+      skills: ["Kubernetes", "Docker", "GKE", "Containerized Deployments", "Microservices"],
     },
     {
       id: 3,
-      title: "Full Stack Web Development",
-      issuer: "The Odin Project",
-      year: "2022",
-      skills: ["React", "Node.js", "MongoDB", "REST APIs"],
-      credential: "Credentials URL/Link",
+      title: "Build a Data Warehouse with BigQuery",
+      issuer: "Google Cloud",
+      badge: "Data Warehousing",
+      skills: ["BigQuery", "Data Warehousing", "SQL Analytics", "ETL Pipelines", "Data Modeling"],
     },
   ];
 
@@ -59,87 +53,75 @@ export const Education = () => {
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.4 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-14"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Education &{" "}
-            <span className="bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text text-transparent">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+            Education &amp;{" "}
+            <span className="bg-gradient-to-r from-pink-500 to-violet-600 bg-clip-text text-transparent">
               Certifications
             </span>
           </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-pink-500 to-violet-500 mx-auto"></div>
+          <div className="w-16 h-1 bg-gradient-to-r from-pink-500 to-violet-500 mx-auto rounded-full mb-4"></div>
+          <p className="text-gray-600 max-w-lg mx-auto text-sm">
+            Academic training in Data Science &amp; AI paired with verified Google Cloud computing credentials.
+          </p>
         </motion.div>
 
-        {/* Education Timeline */}
-        <div className="mb-20">
-          <h3 className="text-2xl font-bold text-gray-800 mb-8 text-center md:text-left">
-            Academic{" "}
-            <span className="bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text text-transparent">
-              Background
-            </span>
+        {/* Education Section */}
+        <div className="mb-14">
+          <h3 className="text-xl font-bold text-gray-900 mb-5">
+            Academic Background
           </h3>
 
-          <div className="relative">
-            {/* Timeline line */}
-            <div className="absolute left-6 h-full w-0.5 bg-gradient-to-b from-pink-300 to-violet-300"></div>
-
-            {education.map((edu, index) => (
+          <div className="space-y-6">
+            {education.map((edu) => (
               <motion.div
                 key={edu.id}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
                 viewport={{ once: true }}
-                className="relative pl-16 mb-12"
+                className="bg-gray-50/70 rounded-2xl p-7 border border-gray-200/80 shadow-2xs"
               >
-                {/* Timeline dot */}
-                <div className="absolute left-0 top-0 w-4 h-4 rounded-full bg-gradient-to-r from-pink-500 to-violet-500 transform -translate-x-1/2"></div>
-
-                {/* Institution logo */}
-                <div className="absolute left-8 top-0 w-12 h-12 rounded-full bg-white border-2 border-gray-200 flex items-center justify-center overflow-hidden">
-                  <img
-                    src={edu.logo}
-                    alt={edu.institution}
-                    className="w-8 h-8 object-contain"
-                  />
-                </div>
-
-                {/* Content */}
-                <div className="bg-gray-50 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
-                  <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
-                    <div>
-                      <h4 className="text-xl font-bold text-gray-800">
-                        {edu.degree}
-                      </h4>
-                      <p className="text-gray-600">{edu.institution}</p>
-                    </div>
-                    <span className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm mt-2 md:mt-0">
-                      {edu.year}
+                <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-3 gap-2">
+                  <div>
+                    <span className="text-[11px] font-semibold px-2 py-0.5 rounded bg-pink-100 text-pink-700 mb-1.5 inline-block">
+                      Master's Degree
                     </span>
+                    <h4 className="text-xl font-bold text-gray-900">
+                      {edu.degree}
+                    </h4>
+                    <p className="text-gray-600 font-medium text-xs mt-0.5">
+                      {edu.institution} • <span className="text-gray-500">{edu.location}</span>
+                    </p>
                   </div>
 
-                  <p className="text-gray-600 mb-4">{edu.description}</p>
+                  <span className="px-3 py-1 bg-white border border-gray-200 text-gray-700 rounded-full text-xs font-semibold self-start">
+                    {edu.year}
+                  </span>
+                </div>
 
-                  <div className="mt-4">
-                    <h5 className="text-sm font-semibold text-gray-700 mb-2">
-                      Key Courses:
-                    </h5>
-                    <div className="flex flex-wrap gap-2">
-                      {edu.courses.map((course) => (
-                        <Tooltip
-                          key={course}
-                          content={`Projects using ${course}`}
-                        >
-                          <span className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs">
-                            {course}
-                          </span>
-                        </Tooltip>
-                      ))}
-                    </div>
+                <p className="text-gray-600 mb-5 text-sm leading-relaxed max-w-3xl">
+                  {edu.description}
+                </p>
+
+                <div>
+                  <h5 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
+                    Core Coursework:
+                  </h5>
+                  <div className="flex flex-wrap gap-1.5">
+                    {edu.courses.map((course) => (
+                      <span
+                        key={course}
+                        className="px-2.5 py-0.5 bg-white border border-gray-200 text-gray-800 rounded-md text-xs font-medium"
+                      >
+                        {course}
+                      </span>
+                    ))}
                   </div>
                 </div>
               </motion.div>
@@ -147,70 +129,57 @@ export const Education = () => {
           </div>
         </div>
 
-        {/* Certifications Grid */}
+        {/* Certifications Section */}
         <div>
-          <h3 className="text-2xl font-bold text-gray-800 mb-8 text-center md:text-left">
-            Professional{" "}
-            <span className="bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text text-transparent">
-              Certifications
-            </span>
+          <h3 className="text-xl font-bold text-gray-900 mb-5">
+            Google Cloud Certifications
           </h3>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-5">
             {certifications.map((cert) => (
               <motion.div
                 key={cert.id}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3 }}
                 viewport={{ once: true }}
-                className="bg-gray-50 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border-l-4 border-pink-500"
+                className="bg-white rounded-2xl p-5 border border-gray-200/80 shadow-2xs hover:shadow-xs transition-shadow flex flex-col justify-between"
               >
-                <h4 className="text-lg font-bold text-gray-800 mb-2">
-                  {cert.title}
-                </h4>
-                <p className="text-gray-600 text-sm mb-4">
-                  {cert.issuer} • {cert.year}
-                </p>
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-[11px] font-semibold px-2 py-0.5 rounded bg-blue-50 text-blue-700">
+                      {cert.badge}
+                    </span>
+                    <span className="text-[11px] text-gray-400 font-medium">Verified</span>
+                  </div>
 
-                <div className="mb-4">
-                  <h5 className="text-sm font-semibold text-gray-700 mb-2">
-                    Skills Validated:
-                  </h5>
-                  <div className="flex flex-wrap gap-2">
-                    {cert.skills.map((skill) => (
-                      <span
-                        key={skill}
-                        className="px-2 py-1 bg-pink-50 text-pink-700 rounded-full text-xs"
-                      >
-                        {skill}
-                      </span>
-                    ))}
+                  <h4 className="text-base font-bold text-gray-900 mb-1">
+                    {cert.title}
+                  </h4>
+                  <p className="text-pink-600 font-medium text-xs mb-3">
+                    {cert.issuer}
+                  </p>
+
+                  <div className="mb-4">
+                    <div className="flex flex-wrap gap-1">
+                      {cert.skills.map((skill) => (
+                        <span
+                          key={skill}
+                          className="px-2 py-0.5 bg-gray-50 text-gray-600 rounded text-xs"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
 
-                <a
-                  href={cert.credential}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm font-medium text-pink-600 hover:text-pink-700 flex items-center"
-                >
-                  View Credentials
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-4 w-4 ml-1"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                    />
+                <div className="pt-3 border-t border-gray-100 text-xs font-semibold text-emerald-600 flex items-center gap-1.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
-                </a>
+                  Google Cloud Credential
+                </div>
               </motion.div>
             ))}
           </div>

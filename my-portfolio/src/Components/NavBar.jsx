@@ -7,14 +7,21 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
 
 const pages = ["About me", "Projects", "Education", "Experience", "Contact me"];
 
+const sectionIdMap = {
+  "About me": "about",
+  "Projects": "projects",
+  "Education": "education",
+  "Experience": "experience",
+  "Contact me": "contact",
+};
+
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [activeSection, setActiveSection] = React.useState("");
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -24,56 +31,90 @@ function ResponsiveAppBar() {
     setAnchorElNav(null);
   };
 
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(
-      sectionId.toLowerCase().replace(" ", "-")
-    );
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+  const scrollToSection = (page) => {
+    const sectionId = sectionIdMap[page];
+    if (sectionId) {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
     }
     handleCloseNavMenu();
   };
 
+  const scrollToTop = (e) => {
+    e.preventDefault();
+    const heroElement = document.getElementById("home");
+    if (heroElement) {
+      heroElement.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      const sections = Object.values(sectionIdMap);
+      let current = "";
+      for (const id of sections) {
+        const el = document.getElementById(id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 140) {
+            current = id;
+          }
+        }
+      }
+      setActiveSection(current);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const isActive = (page) => sectionIdMap[page] === activeSection;
+
   return (
     <AppBar
-      position="static"
-      sx={{ backgroundColor: "#ffffff", boxShadow: "none" }}
+      position="sticky"
+      sx={{
+        backgroundColor: "rgba(255, 255, 255, 0.8)",
+        backdropFilter: "blur(12px)",
+        boxShadow: "0 1px 3px rgba(0, 0, 0, 0.05)",
+        borderBottom: "1px solid rgba(244, 114, 182, 0.15)",
+        zIndex: 1100,
+        top: 0,
+      }}
     >
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <AdbIcon
-            sx={{ display: { xs: "none", md: "flex" }, mr: 1, color: "black" }}
-          />
-          <Typography
-            variant="h6"
-            noWrap
+        <Toolbar disableGutters sx={{ minHeight: "68px" }}>
+          {/* Logo */}
+          <Box
             component="a"
             href="#home"
+            onClick={scrollToTop}
             sx={{
-              mr: 2,
+              mr: 3,
               display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "#000000",
+              alignItems: "center",
+              gap: "10px",
               textDecoration: "none",
-              "&:hover": {
-                color: "#555555",
-              },
+              cursor: "pointer",
             }}
           >
-            Chahrazed Boutebbakh
-          </Typography>
+            <span className="w-2.5 h-2.5 rounded-full bg-pink-500"></span>
+            <span className="font-bold text-lg text-gray-900 tracking-tight hover:text-pink-600 transition-colors">
+              Chahrazed<span className="text-pink-500">.</span>
+            </span>
+          </Box>
 
-          {/* Mobile menu */}
+          {/* Mobile menu button */}
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
-              aria-label="account of current user"
+              aria-label="open navigation menu"
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
-              color="black"
+              sx={{ color: "#374151" }}
             >
               <MenuIcon />
             </IconButton>
@@ -93,40 +134,56 @@ function ResponsiveAppBar() {
               onClose={handleCloseNavMenu}
               sx={{
                 display: { xs: "block", md: "none" },
+                "& .MuiPaper-root": {
+                  borderRadius: "16px",
+                  padding: "6px",
+                  boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
+                  border: "1px solid #f3f4f6",
+                },
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={() => scrollToSection(page)}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem
+                  key={page}
+                  onClick={() => scrollToSection(page)}
+                  sx={{
+                    borderRadius: "10px",
+                    margin: "2px 0",
+                    backgroundColor: isActive(page) ? "#fdf2f8" : "transparent",
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      fontWeight: isActive(page) ? 600 : 500,
+                      color: isActive(page) ? "#db2777" : "#4b5563",
+                      fontSize: "0.9rem",
+                    }}
+                  >
+                    {page}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
 
-          <AdbIcon
-            sx={{ display: { xs: "flex", md: "none" }, mr: 1, color: "black" }}
-          />
-          <Typography
-            variant="h5"
-            noWrap
+          {/* Mobile Logo */}
+          <Box
             component="a"
             href="#home"
+            onClick={scrollToTop}
             sx={{
-              mr: 2,
               display: { xs: "flex", md: "none" },
+              alignItems: "center",
+              gap: "6px",
               flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "black",
               textDecoration: "none",
-              "&:hover": {
-                color: "#555555",
-              },
             }}
           >
-            Chahrazed Boutebbakh
-          </Typography>
+            <span className="w-2 h-2 rounded-full bg-pink-500"></span>
+            <span className="font-bold text-base text-gray-900">
+              Chahrazed<span className="text-pink-500">.</span>
+            </span>
+          </Box>
 
           {/* Desktop menu */}
           <Box
@@ -134,26 +191,34 @@ function ResponsiveAppBar() {
               flexGrow: 1,
               display: { xs: "none", md: "flex" },
               justifyContent: "flex-end",
+              alignItems: "center",
+              gap: "4px",
             }}
           >
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={() => scrollToSection(page)}
-                sx={{
-                  my: 2,
-                  color: "black",
-                  display: "block",
-                  mx: 1,
-                  "&:hover": {
-                    color: "#555555",
-                    backgroundColor: "transparent",
-                  },
-                }}
-              >
-                {page}
-              </Button>
-            ))}
+            {pages.map((page) => {
+              const active = isActive(page);
+              return (
+                <button
+                  key={page}
+                  onClick={() => scrollToSection(page)}
+                  className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 cursor-pointer ${
+                    active
+                      ? "bg-pink-50 text-pink-700 font-semibold"
+                      : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                  }`}
+                >
+                  {page}
+                </button>
+              );
+            })}
+
+            <a
+              href="/resume.pdf"
+              download="Chahrazed_Boutebbakh_CV.pdf"
+              className="ml-4 px-4 py-1.5 rounded-full text-xs font-semibold text-pink-600 border border-pink-200 hover:bg-pink-500 hover:text-white hover:border-pink-500 transition-all shadow-2xs"
+            >
+              Download CV
+            </a>
           </Box>
         </Toolbar>
       </Container>
